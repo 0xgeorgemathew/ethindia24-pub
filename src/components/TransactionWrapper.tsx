@@ -267,7 +267,7 @@ export default function TransactionWrapper({ address }: { address: Address }) {
           />
 
           <Transaction
-            address={address}
+            // address={address}
             contracts={contracts}
             className="w-full"
             chainId={BASE_SEPOLIA_CHAIN_ID}
