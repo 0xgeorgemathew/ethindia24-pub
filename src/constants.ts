@@ -1,10 +1,9 @@
 export const BASE_SEPOLIA_CHAIN_ID = 84532;
-export const mintContractAddress = "0xF851b2Ec188Fb1D729a8355d59a312890E0364fe";
+export const mintContractAddress = "0xE18148061bf2b4f404D7EaB11033f10D570b647e";
 export const mintABI = [
   {
     anonymous: false,
     inputs: [
-      { indexed: true, internalType: "uint256", name: "adId", type: "uint256" },
       {
         indexed: true,
         internalType: "address",
@@ -18,10 +17,18 @@ export const mintABI = [
         type: "string",
       },
       { indexed: false, internalType: "string", name: "name", type: "string" },
+      { indexed: false, internalType: "string", name: "text", type: "string" },
       {
         indexed: false,
         internalType: "uint256",
         name: "timestamp",
+        type: "uint256",
+      },
+      { indexed: false, internalType: "bool", name: "isActive", type: "bool" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "reputationScore",
         type: "uint256",
       },
     ],
@@ -31,16 +38,69 @@ export const mintABI = [
   {
     anonymous: false,
     inputs: [
-      { indexed: true, internalType: "uint256", name: "adId", type: "uint256" },
       {
         indexed: true,
         internalType: "address",
         name: "publisher",
         type: "address",
       },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "imageIpfsUrl",
+        type: "string",
+      },
+      { indexed: false, internalType: "string", name: "name", type: "string" },
+      { indexed: false, internalType: "string", name: "text", type: "string" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "timestamp",
+        type: "uint256",
+      },
       { indexed: false, internalType: "bool", name: "isActive", type: "bool" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "reputationScore",
+        type: "uint256",
+      },
     ],
     name: "AdStatusChanged",
+    type: "event",
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "publisher",
+        type: "address",
+      },
+      {
+        indexed: false,
+        internalType: "string",
+        name: "imageIpfsUrl",
+        type: "string",
+      },
+      { indexed: false, internalType: "string", name: "name", type: "string" },
+      { indexed: false, internalType: "string", name: "text", type: "string" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "timestamp",
+        type: "uint256",
+      },
+      { indexed: false, internalType: "bool", name: "isActive", type: "bool" },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "reputationScore",
+        type: "uint256",
+      },
+    ],
+    name: "ReputationScoreUpdated",
     type: "event",
   },
   {
@@ -53,6 +113,7 @@ export const mintABI = [
       { internalType: "string", name: "text", type: "string" },
       { internalType: "uint256", name: "timestamp", type: "uint256" },
       { internalType: "bool", name: "isActive", type: "bool" },
+      { internalType: "uint256", name: "reputationScore", type: "uint256" },
     ],
     stateMutability: "view",
     type: "function",
@@ -83,6 +144,7 @@ export const mintABI = [
           { internalType: "string", name: "text", type: "string" },
           { internalType: "uint256", name: "timestamp", type: "uint256" },
           { internalType: "bool", name: "isActive", type: "bool" },
+          { internalType: "uint256", name: "reputationScore", type: "uint256" },
         ],
         internalType: "struct PlaceHolderAds.Ad[]",
         name: "",
@@ -121,8 +183,18 @@ export const mintABI = [
     type: "function",
   },
   {
-    inputs: [{ internalType: "uint256", name: "_adId", type: "uint256" }],
+    inputs: [{ internalType: "address", name: "_publisher", type: "address" }],
     name: "toggleAdStatus",
+    outputs: [],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [
+      { internalType: "address", name: "_publisher", type: "address" },
+      { internalType: "uint256", name: "_reputationScore", type: "uint256" },
+    ],
+    name: "updateReputationScore",
     outputs: [],
     stateMutability: "nonpayable",
     type: "function",
